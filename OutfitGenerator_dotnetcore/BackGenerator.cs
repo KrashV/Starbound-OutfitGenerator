@@ -1,6 +1,8 @@
-﻿using System;
+﻿using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.Primitives;
+using System;
 using System.Configuration;
-using System.Drawing;
 using System.IO;
 
 namespace OutfitGenerator_dotnetcore
@@ -17,11 +19,14 @@ namespace OutfitGenerator_dotnetcore
                             "Try dragging your image file directly on top of the application!");
 
             // Image checking
-            Bitmap target = null;
+            Image<Rgba32> target = null;
 
             try
             {
-                target = new Bitmap(args[0]);
+                using (FileStream stream = File.OpenRead(args[0]))
+                {
+                    target = Image.Load<Rgba32>(stream);
+                }
             }
             catch (ArgumentException)
             {
@@ -43,7 +48,7 @@ namespace OutfitGenerator_dotnetcore
                     throw new GeneratorException($"Sheet dimensions must equal {BACKITEM_SIZE.Width}x{BACKITEM_SIZE.Height}, to match the back template.");
 
                 
-                item = Generator.Generate(target, new Bitmap(new MemoryStream(Properties.Resources.animatedBackTemplate)), Properties.Resources.backTemplate);
+                item = Generator.Generate(target, Image.Load<Rgba32>(new MemoryStream(Properties.Resources.animatedBackTemplate)), Properties.Resources.backTemplate);
             }
             catch (Exception exc)
             {

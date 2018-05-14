@@ -1,6 +1,8 @@
 ﻿using System;
-using System.Drawing;
 using System.IO;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.Primitives;
 
 namespace OutfitGenerator_dotnetcore
 {
@@ -27,11 +29,14 @@ namespace OutfitGenerator_dotnetcore
             }
 
             // Image checking
-            Bitmap target = null;
+            Image<Rgba32> target = null;
 
             try
             {
-                target = new Bitmap(args[0]);
+                using (FileStream stream = File.OpenRead(args[0]))
+                {
+                    target = Image.Load<Rgba32>(stream);
+                }
             }
             catch (ArgumentException)
             {
@@ -56,11 +61,12 @@ namespace OutfitGenerator_dotnetcore
             
             // Get template
             string txtTemplate = options.HideBody.Value ? Properties.Resources.invisiblePantsTemplate : Properties.Resources.pantsTemplate;
-            
+
+            Console.WriteLine("Were here");
             // Set image template
             if (options.HideBody.Value)
             {
-                Generator.Template = options.HideBody.Value ? new Bitmap(new MemoryStream(Properties.Resources.invisibleAnimatedPantsTemplate)) : new Bitmap(new MemoryStream(Properties.Resources.animatedPantsTemplate));
+                Generator.Template = options.HideBody.Value ? Image.Load<Rgba32>(Properties.Resources.invisibleAnimatedPantsTemplate) : Image.Load<Rgba32>(Properties.Resources.animatedPantsTemplate);
             }
 
             // Generating code

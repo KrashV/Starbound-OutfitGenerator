@@ -1,6 +1,10 @@
-﻿using System;
+﻿using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing;
+using SixLabors.ImageSharp.Processing.Transforms;
+using SixLabors.Primitives;
+using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 
 namespace OutfitGenerator_dotnetcore
@@ -10,7 +14,7 @@ namespace OutfitGenerator_dotnetcore
         /// <summary>
         /// Returns the template, used for generating animated pants.
         /// </summary>
-        public static Bitmap Template { get; set; } = new Bitmap(new MemoryStream(Properties.Resources.animatedPantsTemplate));
+        public static Image<Rgba32> Template { get; set; } = Image.Load<Rgba32>(Properties.Resources.animatedPantsTemplate);
 
         /// <summary>
         /// Generates a spawnitem command for the generated pants.
@@ -20,21 +24,19 @@ namespace OutfitGenerator_dotnetcore
         /// <returns>Spawnitem command for the custom pants.</returns>
         /// <exception cref="ArgumentNullException">Thrown if null is passed.</exception>
         /// <exception cref="GeneratorException">Thrown if the dimensions of the given sheet are not valid.</exception>
-        public static string Generate(Bitmap sheet, Bitmap bitmapTemplate, string itemTemplate)
+        public static string Generate(Image<Rgba32> sheet, Image<Rgba32> bitmapTemplate, string itemTemplate)
         {
-            Bitmap template = bitmapTemplate;
-            Dictionary<Color, Color> conversions = new Dictionary<Color, Color>();
-
-            Color transparent = Color.FromArgb(0, 255, 255, 255);
+            Image<Rgba32> template = bitmapTemplate;
+            Dictionary<Rgba32, Rgba32> conversions = new Dictionary<Rgba32, Rgba32>();
 
             for (int y = sheet.Height - 1; y >= 0; y--)
             {
                 for (int x = sheet.Width - 1; x >= 0; x--)
                 {
-                    Color cFrom = template.GetPixel(x, y),
-                        cTo = sheet.GetPixel(x, y);
+                    Rgba32 cFrom = template[x, y],
+                        cTo = sheet[x, y];
 
-                    if (cFrom != transparent && !cFrom.Equals(cTo) && cTo.A != 0)
+                    if (cFrom != Rgba32.Transparent && !cFrom.Equals(cTo) && cTo.A != 0)
                         conversions[cFrom] = cTo;
                 }
             }
@@ -51,14 +53,14 @@ namespace OutfitGenerator_dotnetcore
         /// <param name="sheet"></param>
         /// <param name="acceptedSizes"></param>
         /// <returns></returns>
-        public static bool ValidSheet(Bitmap sheet, params Size[] acceptedSizes)
+        public static bool ValidSheet(Image<Rgba32> sheet, params Size[] acceptedSizes)
         {
             if (sheet == null)
                 return false;
 
             foreach (Size size in acceptedSizes)
             {
-                if (sheet.Size == size)
+                if (size.Equals(sheet.Size()))
                     return true;
             }
             return false;
@@ -70,9 +72,9 @@ namespace OutfitGenerator_dotnetcore
         /// </summary>
         /// <param name="sheet"></param>
         /// <returns></returns>
-        public static Bitmap CropPants(Bitmap sheet)
+        public static Image<Rgba32> CropPants(Image<Rgba32> sheet)
         {
-            return sheet.Size.Height == 301 ? sheet.Clone(new Rectangle(0, 0, 387, 258), sheet.PixelFormat) : sheet;
+            return sheet.Size().Height == 301 ? sheet.Clone(x => x.Crop(new Rectangle(0, 0, 387, 258))) : sheet;
         }
 
         /// <summary>
@@ -94,10 +96,10 @@ namespace OutfitGenerator_dotnetcore
         /// </summary>
         /// <param name="conversions">Table containing all color conversions. Keys are converted to their value counterpart.</param>
         /// <returns>Replace directives string.</returns>
-        public static string CreateDirectives(Dictionary<Color, Color> conversions)
+        public static string CreateDirectives(Dictionary<Rgba32, Rgba32> conversions)
         {
             string directives = "?replace";
-            foreach (KeyValuePair<Color, Color> conversion in conversions)
+            foreach (KeyValuePair<Rgba32, Rgba32> conversion in conversions)
             {
                 directives += string.Format(";{0}={1}", ColorToString(conversion.Key), ColorToString(conversion.Value));
             }
@@ -109,7 +111,7 @@ namespace OutfitGenerator_dotnetcore
         /// </summary>
         /// <param name="c">Color to convert.</param>
         /// <returns>Hexadecimal RRGGBBAA color code.</returns>
-        public static string ColorToString(Color c)
+        public static string ColorToString(Rgba32 c)
         {
             string r = c.R.ToString("X2"),
                     g = c.G.ToString("X2"),

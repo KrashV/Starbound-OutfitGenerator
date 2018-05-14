@@ -1,5 +1,10 @@
-﻿using System;
-using System.Drawing;
+﻿using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing;
+using SixLabors.ImageSharp.Processing.Drawing;
+using SixLabors.Primitives;
+using System;
+using System.IO;
 
 namespace OutfitGenerator_dotnetcore
 {
@@ -11,7 +16,7 @@ namespace OutfitGenerator_dotnetcore
 
         public static void Generate(string[] args)
         {
-            Bitmap result = null;
+            Image<Rgba32> result = null;
 
             if (args.Length != 2)
                 Program.WaitAndExit("Improper usage! Expected parameters: <image_path_1> <image_path_2>\n" +
@@ -24,10 +29,10 @@ namespace OutfitGenerator_dotnetcore
             return;
         }
 
-        private static Bitmap Sleeves(string firstPath, string secondPath)
+        private static Image<Rgba32> Sleeves(string firstPath, string secondPath)
         {
-            Bitmap frontSleeves;
-            Bitmap backSleeves;
+            Image<Rgba32> frontSleeves;
+            Image<Rgba32> backSleeves;
 
             Console.WriteLine("Is the order correct?");
             Console.WriteLine("front sleeve image: " + firstPath);
@@ -36,15 +41,19 @@ namespace OutfitGenerator_dotnetcore
 
             try
             {
-                if (Console.ReadKey(true).Key == ConsoleKey.Enter)
+                using (FileStream firstStream = File.OpenRead(firstPath))
+                using (FileStream secondStream = File.OpenRead(secondPath))
                 {
-                    frontSleeves = new Bitmap(firstPath);
-                    backSleeves = new Bitmap(secondPath);
-                }
-                else
-                {
-                    frontSleeves = new Bitmap(secondPath);
-                    backSleeves = new Bitmap(firstPath);
+                    if (Console.ReadKey(true).Key == ConsoleKey.Enter)
+                    {
+                        frontSleeves = Image.Load<Rgba32>(firstStream);
+                        backSleeves = Image.Load<Rgba32>(secondStream);
+                    }
+                    else
+                    {
+                        frontSleeves = Image.Load<Rgba32>(secondStream);
+                        backSleeves = Image.Load<Rgba32>(firstStream);
+                    }
                 }
             }
             catch (ArgumentException)
@@ -63,9 +72,9 @@ namespace OutfitGenerator_dotnetcore
             return ApllyMultingSleeves(frontSleeves, backSleeves);
         }
 
-        private static Bitmap ApllyMultingSleeves(Bitmap frontSleeves, Bitmap backSleeves)
+        private static Image<Rgba32> ApllyMultingSleeves(Image<Rgba32> frontSleeves, Image<Rgba32> backSleeves)
         {
-            Bitmap result = new Bitmap(SLEEVES_WIDTH, SLEEVES_HEIGHT * 2);
+            Image<Rgba32> result = new Image<Rgba32>(SLEEVES_WIDTH, SLEEVES_HEIGHT * 2);
 
             Superimpose(result, frontSleeves, 0, 0);
             Superimpose(result, backSleeves, 0, SLEEVES_HEIGHT);
@@ -73,10 +82,9 @@ namespace OutfitGenerator_dotnetcore
             return result;
         }
 
-        private static void Superimpose(Bitmap largeBmp, Bitmap smallBmp, int x, int y)
+        private static void Superimpose(Image<Rgba32> largeBmp, Image<Rgba32> smallBmp, int x, int y)
         {
-            Graphics g = Graphics.FromImage(largeBmp);
-            g.DrawImage(smallBmp, x, y, smallBmp.Width, smallBmp.Height);
+            largeBmp.Mutate(pic => pic.DrawImage(smallBmp, PixelBlenderMode.Over, 1, new Point(x, y)));
         }
     }
 }

@@ -1,5 +1,6 @@
-﻿using System;
-using System.Drawing;
+﻿using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
+using System;
 using System.IO;
 using System.Linq;
 
@@ -15,11 +16,14 @@ namespace OutfitGenerator_dotnetcore
                             "Try dragging your image file directly on top of the application!");
 
             // Image checking
-            Bitmap target = null;
+            Image<Rgba32> target = null;
 
             try
             {
-                target = new Bitmap(args[0]);
+                using (FileStream stream = File.OpenRead(args[0]))
+                {
+                    target = Image.Load<Rgba32>(stream);
+                }
             }
             catch (ArgumentException)
             {
@@ -48,7 +52,7 @@ namespace OutfitGenerator_dotnetcore
                 if (target.Width != 387 || target.Height != 602)
                     throw new GeneratorException("Sheet dimensions must equal 387x602, to match the sleeve template.");
                 
-                item = Generator.Generate(target, new Bitmap(new MemoryStream(Properties.Resources.animatedSleevesTemplate)), Properties.Resources.sleeveTemplate);
+                item = Generator.Generate(target, Image.Load<Rgba32>(new MemoryStream(Properties.Resources.animatedSleevesTemplate)), Properties.Resources.sleeveTemplate);
             }
             catch (Exception exc)
             {

@@ -105,6 +105,7 @@ namespace OutfitGenerator_dotnetcore.Properties {
         internal static byte[] invisibleAnimatedPantsTemplate {
             get {
                 object obj = ResourceManager.GetObject("invisibleAnimatedPantsTemplate", resourceCulture);
+                Console.WriteLine(obj.ToString());
                 return ((byte[])(obj));
             }
         }
