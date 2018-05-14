@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "OutfitGenerator_dotnetcore": {
+      "commandName": "Project",
+      "commandLineArgs": "\"C:\\\\Users\\\\Degranon\\\\Desktop\\\\Картинки\\\\Blabsdor\\\\Tall\\\\body.png\""
+    }
+  }
+}

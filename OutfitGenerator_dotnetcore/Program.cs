@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Reflection;
-using System.Drawing;
-using System.Configuration;
 
-namespace OutfitGenerator_dotcore
+namespace OutfitGenerator_dotnetcore
 {
     class Program
     {
         private static ConsoleWriter writer;
 
-        [STAThread]
+
         static void Main(string[] args)
         {
             writer = new ConsoleWriter(ConsoleColor.Cyan);
@@ -75,24 +73,6 @@ namespace OutfitGenerator_dotcore
             Console.ReadKey(true);
 
             Environment.Exit(0);
-        }
-
-        // Retrieves a connection string by name.
-        // Returns null if the name is not found.
-        public static string GetConnectionStringByName(string name)
-        {
-            // Assume failure.
-            string returnValue = null;
-
-            // Look for the name in the connectionStrings section.
-            ConnectionStringSettings settings =
-                ConfigurationManager.ConnectionStrings[name];
-
-            // If found, return the connection string.
-            if (settings != null)
-                returnValue = settings.ConnectionString;
-
-            return returnValue;
         }
     }
 }

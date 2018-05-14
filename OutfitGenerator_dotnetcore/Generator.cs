@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 
-namespace OutfitGenerator
+namespace OutfitGenerator_dotnetcore
 {
     public static class Generator
     {
         /// <summary>
         /// Returns the template, used for generating animated pants.
         /// </summary>
-        public static Bitmap Template { get; set; } = Properties.Resources.animatedPantsTemplate;
+        public static Bitmap Template { get; set; } = new Bitmap(new MemoryStream(Properties.Resources.animatedPantsTemplate));
 
         /// <summary>
         /// Generates a spawnitem command for the generated pants.

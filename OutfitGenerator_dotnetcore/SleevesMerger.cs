@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 
-namespace OutfitGenerator_dotcore
+namespace OutfitGenerator_dotnetcore
 {
     class SleevesMerger
     {

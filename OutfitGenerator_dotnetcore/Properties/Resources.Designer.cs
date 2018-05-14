@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace OutfitGenerator.Properties {
+namespace OutfitGenerator_dotnetcore.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace OutfitGenerator.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("OutfitGenerator.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("OutfitGenerator_dotnetcore.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,32 +61,32 @@ namespace OutfitGenerator.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static System.Drawing.Bitmap animatedBackTemplate {
+        internal static byte[] animatedBackTemplate {
             get {
                 object obj = ResourceManager.GetObject("animatedBackTemplate", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((byte[])(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static System.Drawing.Bitmap animatedPantsTemplate {
+        internal static byte[] animatedPantsTemplate {
             get {
                 object obj = ResourceManager.GetObject("animatedPantsTemplate", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((byte[])(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static System.Drawing.Bitmap animatedSleevesTemplate {
+        internal static byte[] animatedSleevesTemplate {
             get {
                 object obj = ResourceManager.GetObject("animatedSleevesTemplate", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((byte[])(obj));
             }
         }
         
@@ -100,12 +100,12 @@ namespace OutfitGenerator.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static System.Drawing.Bitmap invisibleAnimatedPantsTemplate {
+        internal static byte[] invisibleAnimatedPantsTemplate {
             get {
                 object obj = ResourceManager.GetObject("invisibleAnimatedPantsTemplate", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((byte[])(obj));
             }
         }
         
@@ -119,7 +119,7 @@ namespace OutfitGenerator.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /spawnitem florantier6apants 1 &apos;{&quot;description&quot;:&quot;Special thanks to Nettle Boy for all the hard work behind this method!&quot;,&quot;shortdescription&quot;:&quot;Custom Pants!&quot;,&quot;inventoryIcon&quot;:&quot;pants.png:idle.2&quot;,&quot;directives&quot;:&quot;?scale=0.4?scale=0.7?crop;6;2;7;3?hueshift=114.43?multiply=00ff00?scale=2?blendscreen=/objects/outpost/customsign/customsignframe.png;0;-1?blendscreen=/interface/ai/body.png;-1;0?multiply=79ff5300?scale=47?crop;1;1;44;44{directives}&quot;}&apos;.
+        ///   Looks up a localized string similar to /spawnitem florantier6apants 1 &apos;{&quot;description&quot;:&quot;Special thanks to Nettle Boy for all the hard work behind this method!&quot;,&quot;shortdescription&quot;:&quot;Custom Pants!&quot;,&quot;inventoryIcon&quot;:&quot;pants.png:idle.2&quot;,&quot;directives&quot;:&quot;?replace;ffffff00=ffffff;00000000=ffffff;ffca8a00=ffffff;e0975c00=ffffff;a8563600=ffffff;6f291900=ffffff;9bba3d00=ffffff;48832f00=ffffff;1b4c2a00=ffffff;a4784400=ffffff;754c2300=ffffff;472b1300=ffffff;e7dfbd00=ffffff;320c4000=ffffff?scale=0.4?scale=0.7?replace;a0b03e=00a10000;7e9b35=00a20000;a5ba92=00a30000 [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string pantsTemplate {
             get {

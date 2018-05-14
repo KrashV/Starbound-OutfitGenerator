@@ -1,18 +1,16 @@
 ﻿using System;
-using System.Configuration;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 
-namespace OutfitGenerator_dotcore
+namespace OutfitGenerator_dotnetcore
 {
-    class BackGenerator
+    class SleeveGenerator
     {
-        private static Size BACKITEM_SIZE = new Size(387, 301);
-
         public static void Generate(string[] args)
         {
             // Parameter checking
-            if (args.Length != 1)
+            if (args.Count() != 1)
                 Program.WaitAndExit("Improper usage! Expected parameter: <image_path>\n" +
                             "Try dragging your image file directly on top of the application!");
 
@@ -28,9 +26,17 @@ namespace OutfitGenerator_dotcore
                 Program.WaitAndExit("The file \"{0}\" is not a valid image or does not exist.", args[0]);
                 return;
             }
-
+            
             // Begin
             Console.WriteLine("Starting generation.");
+            Console.WriteLine("");
+
+            // Warn of memory leak (https://github.com/Silverfeelin/Starbound-OutfitGenerator/issues/1)
+            Console.WriteLine("== WARNING ==");
+            Console.WriteLine("Please note that the 64-bit build of Starbound (1.3.1) has a memory leak, which generated sleeves suffer from.");
+            Console.WriteLine("Consider using the 32-bit build of Starbound instead.");
+            Console.WriteLine("If anyone else suffers from this problem, please recommend this temporary solution.");
+            Console.WriteLine("=============");
             Console.WriteLine("");
 
             string item;
@@ -39,28 +45,27 @@ namespace OutfitGenerator_dotcore
                 if (target == null)
                     throw new ArgumentNullException("Sheet may not be null.");
 
-                if (!Generator.ValidSheet(target, BACKITEM_SIZE))
-                    throw new GeneratorException($"Sheet dimensions must equal {BACKITEM_SIZE.Width}x{BACKITEM_SIZE.Height}, to match the back template.");
-
+                if (target.Width != 387 || target.Height != 602)
+                    throw new GeneratorException("Sheet dimensions must equal 387x602, to match the sleeve template.");
                 
-                item = Generator.Generate(target, new Bitmap(Program.GetConnectionStringByName("backImage")), Program.GetConnectionStringByName("backTemplate"));
+                item = Generator.Generate(target, new Bitmap(new MemoryStream(Properties.Resources.animatedSleevesTemplate)), Properties.Resources.sleeveTemplate);
             }
             catch (Exception exc)
             {
                 Program.WaitAndExit(exc.Message);
                 return;
             }
-
+            
             DirectoryInfo directory = (new FileInfo(args[0])).Directory;
 
             // Save to disk
-            string generatedFileName = Generator.Save(directory, item, "generatedBack");
+            string generatedFileName = Generator.Save(directory, item, "generatedSleeves");
             string generatedFilePath = directory + "\\" + generatedFileName;
-            Console.WriteLine("Saved generated back item to {0}!", generatedFilePath);
+            Console.WriteLine("Saved generated sleeves to {0}!", generatedFilePath);
 
             // Copy to clipboard
-            Clipboard.Copy(item);
-            Console.WriteLine("Copied command to clipboard!");
+            //Clipboard.Copy(item);
+            //Console.WriteLine("Copied command to clipboard!");
             Console.WriteLine("");
 
             Program.WaitAndExit("Done!");

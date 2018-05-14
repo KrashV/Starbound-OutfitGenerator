@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OutfitGenerator
+namespace OutfitGenerator_dotnetcore
 {
     public class ConsoleWriter
     {

@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.IO;
 
-namespace OutfitGenerator_dotcore
+namespace OutfitGenerator_dotnetcore
 {
     class PantsGenerator
     {
@@ -55,12 +55,12 @@ namespace OutfitGenerator_dotcore
             GenerationOptions options = ParseArgs(args);
             
             // Get template
-            string txtTemplate = options.HideBody.Value ? Program.GetConnectionStringByName("invisiblePantsTemplate") : Program.GetConnectionStringByName("pantsTemplate");
+            string txtTemplate = options.HideBody.Value ? Properties.Resources.invisiblePantsTemplate : Properties.Resources.pantsTemplate;
             
             // Set image template
             if (options.HideBody.Value)
             {
-                Generator.Template = options.HideBody.Value ? new Bitmap(Program.GetConnectionStringByName("invisiblePantsImage")) : new Bitmap(Program.GetConnectionStringByName("pantsImage"));
+                Generator.Template = options.HideBody.Value ? new Bitmap(new MemoryStream(Properties.Resources.invisibleAnimatedPantsTemplate)) : new Bitmap(new MemoryStream(Properties.Resources.animatedPantsTemplate));
             }
 
             // Generating code
@@ -85,8 +85,8 @@ namespace OutfitGenerator_dotcore
             Console.WriteLine("Saved generated pants to {0}!", generatedFilePath);
 
             // Copy to clipboard
-            Clipboard.Copy(item);
-            Console.WriteLine("Copied command to clipboard!");
+            //Clipboard.Copy(item);
+            //Console.WriteLine("Copied command to clipboard!");
 
             Program.WaitAndExit("Done!");
         }
