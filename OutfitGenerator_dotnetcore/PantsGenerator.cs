@@ -60,13 +60,12 @@ namespace OutfitGenerator_dotnetcore
             GenerationOptions options = ParseArgs(args);
             
             // Get template
-            string txtTemplate = options.HideBody.Value ? Properties.Resources.invisiblePantsTemplate : Properties.Resources.pantsTemplate;
+            string txtTemplate = options.HideBody.Value ? ResourceManager.GetResourceText("Resources.invisiblePantsTemplate.txt") : ResourceManager.GetResourceText("Resources.pantsTemplate.txt");
 
-            Console.WriteLine("Were here");
             // Set image template
             if (options.HideBody.Value)
             {
-                Generator.Template = options.HideBody.Value ? Image.Load<Rgba32>(Properties.Resources.invisibleAnimatedPantsTemplate) : Image.Load<Rgba32>(Properties.Resources.animatedPantsTemplate);
+                Generator.Template = options.HideBody.Value ? Image.Load<Rgba32>(ResourceManager.GetResourceImage("Resources.invisibleAnimatedPantsTemplate.png")) : Image.Load<Rgba32>(ResourceManager.GetResourceImage("Resources.animatedPantsTemplate.png"));
             }
 
             // Generating code

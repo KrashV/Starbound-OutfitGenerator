@@ -23,9 +23,12 @@ namespace OutfitGenerator_dotnetcore
                             "Try dragging your image files directly on top of the application!");
 
             result = Sleeves(args[0], args[1]);
+
             string name = "mergedSleeves" + DateTime.Now.ToString(" MM.dd h.mm.ss") + ".png";
-            result.Save(name);
-            Program.WaitAndExit("Done saving, check \"" + name + "\"");
+            DirectoryInfo directory = (new FileInfo(args[0])).Directory;
+            string generatedFilePath = directory.FullName + "\\" + name;
+            result.Save(generatedFilePath);
+            Program.WaitAndExit("Done saving, check {0}", generatedFilePath);
             return;
         }
 

@@ -48,7 +48,7 @@ namespace OutfitGenerator_dotnetcore
                     throw new GeneratorException($"Sheet dimensions must equal {BACKITEM_SIZE.Width}x{BACKITEM_SIZE.Height}, to match the back template.");
 
                 
-                item = Generator.Generate(target, Image.Load<Rgba32>(new MemoryStream(Properties.Resources.animatedBackTemplate)), Properties.Resources.backTemplate);
+                item = Generator.Generate(target, Image.Load<Rgba32>(ResourceManager.GetResourceImage("Resources.animatedBackTemplate.png")), ResourceManager.GetResourceText("Resources.backTemplate.txt"));
             }
             catch (Exception exc)
             {

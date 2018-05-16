@@ -52,7 +52,7 @@ namespace OutfitGenerator_dotnetcore
                 if (target.Width != 387 || target.Height != 602)
                     throw new GeneratorException("Sheet dimensions must equal 387x602, to match the sleeve template.");
                 
-                item = Generator.Generate(target, Image.Load<Rgba32>(new MemoryStream(Properties.Resources.animatedSleevesTemplate)), Properties.Resources.sleeveTemplate);
+                item = Generator.Generate(target, Image.Load<Rgba32>(ResourceManager.GetResourceImage("Resources.animatedSleevesTemplate.png")), ResourceManager.GetResourceText("Resources.sleeveTemplate.txt"));
             }
             catch (Exception exc)
             {
@@ -70,7 +70,6 @@ namespace OutfitGenerator_dotnetcore
             // Copy to clipboard
             //Clipboard.Copy(item);
             //Console.WriteLine("Copied command to clipboard!");
-            Console.WriteLine("");
 
             Program.WaitAndExit("Done!");
         }

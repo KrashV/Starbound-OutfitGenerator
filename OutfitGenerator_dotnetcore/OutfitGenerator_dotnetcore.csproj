@@ -8,6 +8,28 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\animatedBackTemplate.png" />
+    <None Remove="Resources\animatedPantsTemplate.png" />
+    <None Remove="Resources\animatedSleevesTemplate.png" />
+    <None Remove="Resources\backTemplate.txt" />
+    <None Remove="Resources\invisibleAnimatedPantsTemplate.png" />
+    <None Remove="Resources\invisiblePantsTemplate.txt" />
+    <None Remove="Resources\pantsTemplate.txt" />
+    <None Remove="Resources\sleeveTemplate.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\animatedBackTemplate.png" />
+    <EmbeddedResource Include="Resources\animatedPantsTemplate.png" />
+    <EmbeddedResource Include="Resources\animatedSleevesTemplate.png" />
+    <EmbeddedResource Include="Resources\backTemplate.txt" />
+    <EmbeddedResource Include="Resources\invisibleAnimatedPantsTemplate.png" />
+    <EmbeddedResource Include="Resources\invisiblePantsTemplate.txt" />
+    <EmbeddedResource Include="Resources\pantsTemplate.txt" />
+    <EmbeddedResource Include="Resources\sleeveTemplate.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-beta0003" />
     <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="1.0.0-beta0003" />
   </ItemGroup>

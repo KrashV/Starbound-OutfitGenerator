@@ -14,7 +14,7 @@ namespace OutfitGenerator_dotnetcore
         /// <summary>
         /// Returns the template, used for generating animated pants.
         /// </summary>
-        public static Image<Rgba32> Template { get; set; } = Image.Load<Rgba32>(Properties.Resources.animatedPantsTemplate);
+        public static Image<Rgba32> Template { get; set; } = Image.Load<Rgba32>(ResourceManager.GetResourceImage("Resources.animatedPantsTemplate.png"));
 
         /// <summary>
         /// Generates a spawnitem command for the generated pants.
