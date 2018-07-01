@@ -34,7 +34,7 @@ namespace OutfitGenerator_dotnetcore
             string name = "mergedChestPants" + DateTime.Now.ToString(" MM.dd h.mm.ss") + ".png";
 
             DirectoryInfo directory = (new FileInfo(args[0])).Directory;
-            string generatedFilePath = directory.FullName + "\\" + name;
+            string generatedFilePath = directory.FullName + "/" + name;
             result.Save(generatedFilePath);
             Program.WaitAndExit("Done saving, check {0}", generatedFilePath);
             return;

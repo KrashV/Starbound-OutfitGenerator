@@ -86,7 +86,7 @@ namespace OutfitGenerator_dotnetcore
         public static string Save(DirectoryInfo directory, string content, string fileNamePrefix = "generatedPants")
         {
             string file = string.Format("{0}-{1}.txt", fileNamePrefix, DateTime.Now.ToString("h-mm-ss"));
-            File.WriteAllText(directory.FullName + "\\" + file, content);
+            File.WriteAllText(directory.FullName + "/" + file, content);
             return file;
         }
 

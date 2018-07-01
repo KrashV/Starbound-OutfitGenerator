@@ -60,7 +60,7 @@ namespace OutfitGenerator_dotnetcore
 
             // Save to disk
             string generatedFileName = Generator.Save(directory, item, "generatedBack");
-            string generatedFilePath = directory + "\\" + generatedFileName;
+            string generatedFilePath = directory + "/" + generatedFileName;
             Console.WriteLine("Saved generated back item to {0}!", generatedFilePath);
 
             // Copy to clipboard
