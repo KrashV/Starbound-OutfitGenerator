@@ -1,2 +1,2 @@
 # Starbound Outfit Generator
-https://krashv.github.io/Starbound-AdvancedHatter/
+https://krashv.github.io/Starbound-OutfitGenerator/
