@@ -163,6 +163,7 @@ function generateFile() {
     getImageData("templates/" + $('#typeSelect').val() + ".png", function(width, height, templateImageData) {
 		if (currentImage.width != width || currentImage.height != height)
 		{
+			$("#warning-dimension-sheet").text("The spritesheet dimensions must be " + width + "x" + height);
 			showAlert('#warning-dimension-sheet')
 			return
 		}

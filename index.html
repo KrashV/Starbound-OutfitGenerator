@@ -74,30 +74,46 @@
 		<div class="container-fluid">
 
 			<!-- Left Column -->
-			<div class="col-sm-3">
-				<h3 class="content-header">Outfit generator</h3>
-				<label for="btnSelectImage">Select an image</label>
-				<button id="btnSelectImage" class="btn btn-default">Select Image</button>
-				<input style="display:none;" id="selectImage" type="file" accept="image/*">
-				<br/>
-				<label for="typeSelect">Select the generator</label>
-				<select id="typeSelect" class="btn btn-default" style="width: 150px;">
-					<option value="sleeves" >Sleeves</option>
-					<option value="pants"   >Pants</option>
-					<option value="invpants">Hiding Pants</option>
-					<option value="back"    >Back</option>
-				</select>
-				
-				<button id="btnGenerate" class="btn btn-success">Generate Item File</button>
-			</div><!--/Left Column-->
+			<div class="row">
+				<div class="col-sm-3">
+					<h3 class="content-header">Outfit generator</h3>
+					<label for="btnSelectImage">Select an image</label>
+					<button id="btnSelectImage" class="btn btn-default">Select Image</button>
+					<input style="display:none;" id="selectImage" type="file" accept="image/*">
+					<br/>
+					<label for="typeSelect">Select the generator</label>
+					<select id="typeSelect" class="btn btn-default" style="width: 150px;">
+						<option value="sleeves" >Sleeves</option>
+						<option value="pants"   >Pants</option>
+						<option value="invpants">Hiding Pants</option>
+						<option value="back"    >Back</option>
+					</select>
+					
+					<button id="btnGenerate" class="btn btn-success">Generate Item File</button>
+				</div><!--/Left Column-->
 
 
-		  <!-- Right Column -->
-		  <div class="col-sm-3">
-			<h3 class="content-header">Preview</h3>
-			<canvas id="cvsPrevewImage"></canvas>
-		  </div><!--/Right Column -->
-
+			  <!-- Right Column -->
+			  <div class="col-sm-3">
+				<h3 class="content-header">Preview</h3>
+				<canvas id="cvsPrevewImage"></canvas>
+			  </div><!--/Right Column -->
+			</div>
+			
+			<!-- Templates -->
+			<div class="row">
+				<h3 class="content-header">Templates</h3>
+				<div class="col-sm-3">
+					<label for="mpantsImage">Male Pants / Back</label>
+					<img id="mpantsImage" src="examples/malebody.png" alt="Male body">
+					<label for="fpantsImage">Female Pants / Back</label>
+					<img id="fpantsImage" src="examples/femalebody.png" alt="Female body">
+				</div>
+				<div class="col-sm-3">
+					<label for="sleevesImage">Sleeves</label>
+					<img id="sleevesImage" src="examples/sleeves.png" alt="Sleeves">
+				</div>
+			</div>
 		</div><!--/container-fluid-->
       </div>
       <!-- Footer -->
